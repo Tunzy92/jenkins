@@ -1,10 +1,13 @@
 pipeline {
-    agent any
+    agent any 
     stages {
-        stage ('Hello') {
-               steps {
-                   echo "Welcome, this is my pipeline"
-               }
+        stage ('docker image') {
+            steps {
+                script {
+                    img = 'httpd:2.4-alpine'
+                    docker.image("${img}").run('-d -p 80:80')
+                }
+            }
         }
     }
 }
